@@ -1,0 +1,66 @@
+﻿@model iStudyTest.Models.Product
+
+@{
+    ViewData["Title"] = "保險商品詳細資料";
+}
+
+
+<div>
+    <h4>@ViewData["Title"]</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LaunchDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LaunchDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DiscontinuedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DiscontinuedDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ValidityPeriod)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ValidityPeriod)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DM)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DM)
+        </dd>
+                
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Feature)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Feature)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Company.CompanyID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber" class="btn btn-warning">編輯</a> |
+    <a asp-action="Index" class="btn btn-outline-success">回資料列表</a>
+</div>

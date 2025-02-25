@@ -1,0 +1,67 @@
+﻿@model IEnumerable<iStudyTest.Models.Product>
+
+@{
+    ViewData["Title"] = "商品管理";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">新增產品</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LaunchDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscontinuedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValidityPeriod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th>管理產品</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LaunchDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscontinuedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValidityPeriod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+                                    
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductNumber" class="btn btn-info">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductNumber" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
