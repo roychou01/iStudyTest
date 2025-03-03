@@ -21,7 +21,7 @@ namespace iStudyTest.Controllers
         // GET: InsuranceCompany
         public async Task<IActionResult> Index()
         {
-            return View(await _context.InsuranceCompany.ToListAsync());
+            return View(await _context.InsuranceCompany.OrderBy(p => p.Company).ToListAsync());
         }
 
         // GET: InsuranceCompany/Create
@@ -37,6 +37,14 @@ namespace iStudyTest.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CompanyID,Company")] InsuranceCompany insuranceCompany)
         {
+            var companyid = _context.InsuranceCompany.Find(insuranceCompany.CompanyID);
+
+            if (companyid != null)
+            {
+                ViewData["ErrorMsg"] = "該編號已被使用";
+                return View(insuranceCompany);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(insuranceCompany);
@@ -97,7 +105,40 @@ namespace iStudyTest.Controllers
             return View(insuranceCompany);
         }
 
-         private bool InsuranceCompanyExists(string id)
+        // GET: InsCompany/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var insuranceCompany = await _context.InsuranceCompany
+                .FirstOrDefaultAsync(m => m.CompanyID == id);
+            if (insuranceCompany == null)
+            {
+                return NotFound();
+            }
+
+            return View(insuranceCompany);
+        }
+
+        // POST: InsCompany/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var insuranceCompany = await _context.InsuranceCompany.FindAsync(id);
+            if (insuranceCompany != null)
+            {
+                _context.InsuranceCompany.Remove(insuranceCompany);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool InsuranceCompanyExists(string id)
         {
             return _context.InsuranceCompany.Any(e => e.CompanyID == id);
         }

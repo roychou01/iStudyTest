@@ -7,9 +7,13 @@ namespace iStudyTest.Models;
 public partial class Product
 {
     [Display(Name = "產品編號")]
+    [StringLength(10, MinimumLength = 3, ErrorMessage = "編號3~10字")]
+    [Required(ErrorMessage = "必填")]
     public string ProductNumber { get; set; } = null!;
 
     [Display(Name = "產品名稱")]
+    [StringLength(30, MinimumLength = 1, ErrorMessage = "主題1~30字")]
+    [Required(ErrorMessage = "必填")]
     public string ProductName { get; set; } = null!;
 
     [Display(Name = "上架日")]
@@ -20,7 +24,7 @@ public partial class Product
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
     public DateTime? DiscontinuedDate { get; set; }
 
-    [Display(Name = "效期")]
+    [Display(Name = "效期(月)")]
     public int? ValidityPeriod { get; set; }
 
     [Display(Name = "類型")]

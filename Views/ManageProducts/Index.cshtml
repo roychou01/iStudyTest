@@ -1,89 +1,88 @@
-﻿@model IEnumerable<iStudyTest.Models.Product>
+﻿@*@model IEnumerable<iStudyTest.Models.Product>*@
+@model iStudyTest.ViewModels.VMProducts
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "商品管理";
 }
 
-<h1>Index</h1>
+<div class="row">
+    <div class="col-3">
+        <h5 class="text-center">保險公司</h5>
+        <div class="list-group">
+            @foreach (var item in Model.Companies)
+            {
+                <a asp-action="Index" asp-route-companyid="@item.CompanyID" class="list-group-item-action list-group-item text-center">@item.Company</a>
+            }
+        </div>
+    </div>
+    <div class="col-9">
+        <h5 class="text-center"><span class="text-danger">@ViewData["Company"]</span>產品管理</h5>
+        <p class="text-end">
+            <a asp-action="Create" asp-route-companyid="@ViewBag.CompanyID" class="btn btn-info">新增商品</a>
+        </p>
+        @if (Model.Products.Count() == 0)
+        {
+            <h4 class="text-center text-danger">尚無該公司產品</h4>
+        }
+        else
+        {
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().ProductNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().LaunchDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().DiscontinuedDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().ValidityPeriod)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Products.FirstOrDefault().Type)
+                        </th>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LaunchDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscontinuedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValidityPeriod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DM)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DMType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Feature)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Company)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductNumber)
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LaunchDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscontinuedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidityPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DM)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DMType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Feature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.CompanyID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductNumber">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductNumber">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductNumber">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <th>管理產品</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LaunchDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DiscontinuedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ValidityPeriod)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+
+                            <td class="d-flex">
+                                <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-success">詳細內容</a> |
+                                <a asp-action="Edit" asp-route-id="@item.ProductNumber" asp-route-companyid="@item.CompanyID" class="btn btn-warning">編輯</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
