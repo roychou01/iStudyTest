@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iStudyTest.Models;
+using System.ComponentModel.Design;
 
 namespace iStudyTest.Controllers
 {
@@ -19,10 +20,15 @@ namespace iStudyTest.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? CompanyID)
         {
-            var iStudyTestContext = _context.Product.Include(p => p.Company);
-            return View(await iStudyTestContext.ToListAsync());
+            var products = _context.Product.Include(p => p.Company).AsQueryable();
+            if (!string.IsNullOrEmpty(CompanyID))
+            {
+                products = products.Where(p => p.CompanyID == CompanyID);
+            }
+            ViewData["Company"] = await _context.InsuranceCompany.ToListAsync();
+            return View(await products.ToListAsync());
         }
 
         // GET: Products/Details/5

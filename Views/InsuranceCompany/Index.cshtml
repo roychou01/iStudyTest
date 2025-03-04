@@ -30,9 +30,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Company)
             </td>
-            <td>
+            <td class="d-flex">
                 <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-warning">修改</a> 
-                
+                <form asp-action="Delete">
+                    <input type="hidden" value="@item.CompanyID" name="id" />
+                    <input type="submit" value="刪除" class="btn btn-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.Company) 資料嗎? 刪除後是救不回來的哦!')" />
+                </form>
             </td>
         </tr>
 }

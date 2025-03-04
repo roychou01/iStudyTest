@@ -16,16 +16,13 @@
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LaunchDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscontinuedDate)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ValidityPeriod)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DM)
             </th>
             
             <th>
@@ -40,25 +37,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LaunchDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscontinuedDate)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.ValidityPeriod)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-                                    
+                       
+            <td>
+                <img src="/ProductPhotos/@item.DM" class="img-thumbnail" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Company.CompanyID)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">詳細內容</a> |
-                <a asp-action="Edit" asp-route-id="@item.ProductNumber" class="btn btn-warning">編輯</a> 
                 
             </td>
         </tr>

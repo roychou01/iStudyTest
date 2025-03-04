@@ -38,12 +38,14 @@ namespace iStudyTest.Controllers
         public async Task<IActionResult> Create([Bind("CompanyID,Company")] InsuranceCompany insuranceCompany)
         {
             var companyid = _context.InsuranceCompany.Find(insuranceCompany.CompanyID);
+            var companyname = _context.InsuranceCompany.Find(insuranceCompany.Company);
 
             if (companyid != null)
             {
-                ViewData["ErrorMsg"] = "該編號已被使用";
+                ViewData["ErrorMsg_id"] = "該編號已被使用";
                 return View(insuranceCompany);
             }
+                 
 
             if (ModelState.IsValid)
             {
@@ -108,7 +110,7 @@ namespace iStudyTest.Controllers
         // GET: InsCompany/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
+            if ( id == null)
             {
                 return NotFound();
             }
@@ -119,7 +121,6 @@ namespace iStudyTest.Controllers
             {
                 return NotFound();
             }
-
             return View(insuranceCompany);
         }
 

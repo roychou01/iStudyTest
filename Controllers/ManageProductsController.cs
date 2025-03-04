@@ -50,15 +50,16 @@ namespace iStudyTest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductNumber,ProductName,LaunchDate,DiscontinuedDate,ValidityPeriod,Type,CompanyID,DM,DMType,Feature")] Product product)
+        public async Task<IActionResult> Create(Product product, string companyid)
         {
             var productid = _context.Product.Find(product.ProductNumber);
             if (productid != null)
             {
                 ViewData["ErrorMsg"] = "該產品編號已被使用";
+                ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "Company");
+                ViewData["CompanyID"] = companyid;
                 return View(product);
             }
-
 
             if (ModelState.IsValid)
             {
@@ -66,7 +67,7 @@ namespace iStudyTest.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index),new {companyid=product.CompanyID});
             }
-            //ViewData["CompanyID"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyID", product.CompanyID);
+            
             return View(product);
         }
 
@@ -140,6 +141,40 @@ namespace iStudyTest.Controllers
             }
             ViewData["CompanyID"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyID", product.CompanyID);
             return View(product);
+        }
+
+        // GET: ProductsTest/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Product
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(m => m.ProductNumber == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
+        // POST: ProductsTest/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var product = await _context.Product.FindAsync(id);
+            if (product != null)
+            {
+                _context.Product.Remove(product);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(string id)
