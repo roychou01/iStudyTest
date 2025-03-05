@@ -52,13 +52,11 @@ public partial class iStudyTestContext : DbContext
                 .IsUnicode(false)
                 .IsFixedLength();
             entity.Property(e => e.Address).HasMaxLength(50);
-            entity.Property(e => e.Birthday).HasColumnType("datetime");
             entity.Property(e => e.EmployeePhoto).HasMaxLength(20);
             entity.Property(e => e.Experience).HasMaxLength(200);
             entity.Property(e => e.Gender)
                 .HasMaxLength(5)
                 .IsFixedLength();
-            entity.Property(e => e.HireDate).HasColumnType("datetime");
             entity.Property(e => e.JobTitle).HasMaxLength(20);
             entity.Property(e => e.Name).HasMaxLength(27);
             entity.Property(e => e.Password).HasMaxLength(64);
@@ -135,13 +133,8 @@ public partial class iStudyTestContext : DbContext
 
             entity.Property(e => e.PolicyNumber).HasMaxLength(20);
             entity.Property(e => e.Amount).HasColumnType("money");
-            entity.Property(e => e.EffectiveDate).HasColumnType("datetime");
-            entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
             entity.Property(e => e.Insured).HasMaxLength(27);
             entity.Property(e => e.Insurer).HasMaxLength(27);
-            entity.Property(e => e.Orderdate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
             entity.Property(e => e.PaymentMethod).HasMaxLength(20);
             entity.Property(e => e.ProductNumber).HasMaxLength(10);
             entity.Property(e => e.ServiceNumber)
@@ -178,7 +171,6 @@ public partial class iStudyTestContext : DbContext
                 .HasMaxLength(6)
                 .IsFixedLength();
             entity.Property(e => e.Address).HasMaxLength(50);
-            entity.Property(e => e.Birthday).HasColumnType("datetime");
             entity.Property(e => e.Email).HasMaxLength(20);
             entity.Property(e => e.Gender)
                 .HasMaxLength(5)
@@ -211,11 +203,7 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.CompanyID).HasMaxLength(10);
             entity.Property(e => e.DM).HasMaxLength(20);
             entity.Property(e => e.DMType).HasMaxLength(5);
-            entity.Property(e => e.DiscontinuedDate).HasColumnType("datetime");
             entity.Property(e => e.Feature).HasMaxLength(200);
-            entity.Property(e => e.LaunchDate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
             entity.Property(e => e.ProductName).HasMaxLength(30);
             entity.Property(e => e.Type).HasMaxLength(10);
 

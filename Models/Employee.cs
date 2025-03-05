@@ -18,7 +18,7 @@ public partial class Employee
     public string Gender { get; set; } = null!;
 
     [Display(Name = "員工生日")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
 
     [Display(Name = "員工地址")]
@@ -32,8 +32,8 @@ public partial class Employee
     [Required(ErrorMessage = "必填")]
     public string PersonalID { get; set; } = null!;
 
-    [Display(Name = "員工入職日期")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [Display(Name = "員工到職日")]
+    [DataType(DataType.Date)]
     public DateTime? HireDate { get; set; }
 
     [Display(Name = "員工職稱")]
@@ -53,8 +53,8 @@ public partial class Employee
     [Display(Name = "員工密碼")]
     public string Password { get; set; } = null!;
 
-    [Display(Name = "員工離職日期")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [Display(Name = "員工離職日")]
+    [DataType(DataType.Date)]
     public DateTime? DueDate { get; set; }
 
     public virtual EmployeeRoles RoleCodeNavigation { get; set; } = null!;

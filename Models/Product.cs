@@ -17,11 +17,11 @@ public partial class Product
     public string ProductName { get; set; } = null!;
 
     [Display(Name = "上架日")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime LaunchDate { get; set; }
 
     [Display(Name = "停售日")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime? DiscontinuedDate { get; set; }
 
     [Display(Name = "效期(月)")]

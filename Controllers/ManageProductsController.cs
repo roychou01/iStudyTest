@@ -38,10 +38,13 @@ namespace iStudyTest.Controllers
         public IActionResult Create(string companyid)
         {
             ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "Company");
-
             ViewData["CompanyID"] = companyid;
+            var model = new Product
+            {
+                LaunchDate = DateTime.Today // 設定為今天
+            };
+            return View(model);
 
-            return View();
         }
 
 
@@ -50,8 +53,9 @@ namespace iStudyTest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, string companyid)
+        public async Task<IActionResult> Create(Product product, string companyid, IFormFile? newPhoto)
         {
+            product.CompanyID = companyid;
             var productid = _context.Product.Find(product.ProductNumber);
             if (productid != null)
             {
@@ -61,14 +65,41 @@ namespace iStudyTest.Controllers
                 return View(product);
             }
 
+            //加上處理上傳照片的功能
+            if (newPhoto != null && newPhoto.Length != 0)
+            {
+                if (newPhoto.ContentType != "image/jpeg" && newPhoto.ContentType != "image/png")
+                {
+                    ViewData["Message"] = "請上傳jpg或png格式的檔案!!";
+                    return View(product);
+                }
+                // 取得檔案名稱
+                string fileName = product.ProductNumber + ".jpg";
+
+                // 用一個ProductPhotosPath變數儲存路徑
+                string ProductPhotosPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos", fileName);//取得目的路徑
+
+                // 把檔案儲存於伺服器上
+                using (FileStream stream = new FileStream(ProductPhotosPath, FileMode.Create))
+                {
+                    newPhoto.CopyTo(stream);
+                }
+
+                product.DMType = newPhoto.ContentType;
+                product.DM = fileName;
+            }
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index),new {companyid=product.CompanyID});
             }
-            
+            ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "Company");
+            ViewData["CompanyID"] = companyid;
             return View(product);
+
         }
 
         public async Task<IActionResult> Details(string id)

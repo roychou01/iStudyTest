@@ -9,6 +9,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<iStudyTestContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("iStudyTestConnetion")));
 
+//µù¥USession
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+});
+
+//µù¥Uµn¿ýª¬ºAFilter
+//builder.Services.AddScoped<LoginStatusFilter>();
 
 var app = builder.Build();
 

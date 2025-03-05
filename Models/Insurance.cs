@@ -16,18 +16,18 @@ public partial class Insurance
     public string Insured { get; set; } = null!;
 
     [Display(Name = "要保日")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime Orderdate { get; set; }
 
     [Display(Name = "生效日")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime? EffectiveDate { get; set; }
 
     [Display(Name = "付款方式")]
     public string? PaymentMethod { get; set; }
 
     [Display(Name = "有效期限")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime? ExpiryDate { get; set; }
 
     [Display(Name = "產品編號")]

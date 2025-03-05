@@ -14,7 +14,7 @@ public partial class Member
     public string Name { get; set; } = null!;
 
     [Display(Name = "生日")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+    [DataType(DataType.Date)]
     public DateTime Birthday { get; set; }
 
     [Display(Name = "地址")]
