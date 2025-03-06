@@ -57,7 +57,7 @@ public partial class Employee
     [DataType(DataType.Date)]
     public DateTime? DueDate { get; set; }
 
-    public virtual EmployeeRoles RoleCodeNavigation { get; set; } = null!;
+    public virtual EmployeeRoles? RoleCodeNavigation { get; set; } 
 
     public virtual ICollection<ServiceDetail> ServiceDetail { get; set; } = new List<ServiceDetail>();
 

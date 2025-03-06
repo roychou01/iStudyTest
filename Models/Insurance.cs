@@ -40,7 +40,7 @@ public partial class Insurance
     [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
     public decimal Amount { get; set; }
 
-    public virtual Product ProductNumberNavigation { get; set; } = null!;
+    public virtual Product? ProductNumberNavigation { get; set; } 
 
-    public virtual ServiceList ServiceNumberNavigation { get; set; } = null!;
+    public virtual ServiceList? ServiceNumberNavigation { get; set; }
 }

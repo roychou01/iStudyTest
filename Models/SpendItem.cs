@@ -17,5 +17,5 @@ public partial class SpendItem
 
     public virtual ICollection<IncomeAndSpendDetail> IncomeAndSpendDetail { get; set; } = new List<IncomeAndSpendDetail>();
 
-    public virtual SpendType TypeCodeNavigation { get; set; } = null!;
+    public virtual SpendType? TypeCodeNavigation { get; set; } 
 }

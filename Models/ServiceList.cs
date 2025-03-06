@@ -27,9 +27,9 @@ public partial class ServiceList
 
     public virtual ICollection<Insurance> Insurance { get; set; } = new List<Insurance>();
 
-    public virtual Member Member { get; set; } = null!;
+    public virtual Member? Member { get; set; } 
 
     public virtual ICollection<ServiceDetail> ServiceDetail { get; set; } = new List<ServiceDetail>();
 
-    public virtual ServiceState StateCodeNavigation { get; set; } = null!;
+    public virtual ServiceState? StateCodeNavigation { get; set; } 
 }

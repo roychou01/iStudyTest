@@ -21,7 +21,7 @@ namespace iStudyTest.Controllers
         // GET: InsuranceCompany
         public async Task<IActionResult> Index()
         {
-            return View(await _context.InsuranceCompany.OrderBy(p => p.Company).ToListAsync());
+            return View(await _context.InsuranceCompany.OrderBy(p => p.CompanyName).ToListAsync());
         }
 
         // GET: InsuranceCompany/Create
@@ -38,7 +38,7 @@ namespace iStudyTest.Controllers
         public async Task<IActionResult> Create([Bind("CompanyID,Company")] InsuranceCompany insuranceCompany)
         {
             var companyid = _context.InsuranceCompany.Find(insuranceCompany.CompanyID);
-            var companyname = _context.InsuranceCompany.Find(insuranceCompany.Company);
+            var companyname = _context.InsuranceCompany.Find(insuranceCompany.CompanyName);
 
             if (companyid != null)
             {

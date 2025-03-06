@@ -1,19 +1,25 @@
 ﻿@model IEnumerable<iStudyTest.Models.Product>
 
 @{
-    ViewData["Title"] = "商品管理";
+    ViewData["Title"] = "Index";
 }
 
-<h3>@ViewData["Title"]</h3>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">新增產品</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LaunchDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscontinuedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ValidityPeriod)
@@ -24,38 +30,55 @@
             <th>
                 @Html.DisplayNameFor(model => model.DM)
             </th>
-            
             <th>
-                @Html.DisplayNameFor(model => model.Company)
+                @Html.DisplayNameFor(model => model.DMType)
             </th>
-            <th>管理產品</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Feature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyID)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidityPeriod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-                       
-            <td>
-                <img src="/ProductPhotos/@item.DM" class="img-thumbnail" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.CompanyID)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">詳細內容</a> |
-                
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LaunchDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscontinuedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValidityPeriod)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DMType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Feature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductNumber">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductNumber">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductNumber">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

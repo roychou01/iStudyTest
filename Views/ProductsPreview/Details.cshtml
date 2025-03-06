@@ -1,12 +1,13 @@
 ﻿@model iStudyTest.Models.Product
 
 @{
-    ViewData["Title"] = "保險商品詳細資料";
+    ViewData["Title"] = "Details";
 }
 
+<h1>Details</h1>
 
 <div>
-    <h4>@ViewData["Title"]</h4>
+    <h4>Product</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -45,7 +46,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DM)
         </dd>
-                
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DMType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DMType)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Feature)
         </dt>
@@ -61,5 +67,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index" class="btn btn-outline-success">回資料列表</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

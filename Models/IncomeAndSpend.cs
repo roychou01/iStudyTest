@@ -14,5 +14,5 @@ public partial class IncomeAndSpend
 
     public virtual ICollection<IncomeAndSpendDetail> IncomeAndSpendDetail { get; set; } = new List<IncomeAndSpendDetail>();
 
-    public virtual Member Member { get; set; } = null!;
+    public virtual Member? Member { get; set; }
 }

@@ -16,7 +16,7 @@ public partial class IncomeAndSpendDetail
     [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
     public decimal? Amount { get; set; }
 
-    public virtual SpendItem ItemCodeNavigation { get; set; } = null!;
+    public virtual SpendItem? ItemCodeNavigation { get; set; } 
 
-    public virtual IncomeAndSpend SpendNumberNavigation { get; set; } = null!;
+    public virtual IncomeAndSpend? SpendNumberNavigation { get; set; } 
 }

@@ -11,12 +11,12 @@
         <div class="list-group">
             @foreach (var item in Model.Companies)
             {
-                <a asp-action="Index" asp-route-companyid="@item.CompanyID" class="list-group-item-action list-group-item text-center">@item.Company</a>
+                <a asp-action="Index" asp-route-companyid="@item.CompanyID" class="list-group-item-action list-group-item text-center">@item.CompanyName</a>
             }
         </div>
     </div>
     <div class="col-9">
-        <h5 class="text-center"><span class="text-danger">@ViewData["Company"]</span>產品管理</h5>
+        <h5 class="text-center"><span class="text-danger">@ViewData["CompanyName"]</span>產品管理</h5>
         <p class="text-end">
             <a asp-action="Create" asp-route-companyid="@ViewBag.CompanyID" class="btn btn-info">新增商品</a>
         </p>

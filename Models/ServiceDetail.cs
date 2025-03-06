@@ -16,7 +16,7 @@ public partial class ServiceDetail
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
     public DateTime? ServiceDate { get; set; }
 
-    public virtual Employee Employee { get; set; } = null!;
+    public virtual Employee? Employee { get; set; } 
 
-    public virtual ServiceList ServiceNumberNavigation { get; set; } = null!;
+    public virtual ServiceList? ServiceNumberNavigation { get; set; } 
 }

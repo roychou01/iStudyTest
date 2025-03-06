@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.CompanyID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Company)
+                @Html.DisplayNameFor(model => model.CompanyName)
             </th>
             <th>管理</th>
         </tr>
@@ -28,13 +28,13 @@
                 @Html.DisplayFor(modelItem => item.CompanyID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Company)
+                    @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
             <td class="d-flex">
                 <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-warning">修改</a> 
                 <form asp-action="Delete">
                     <input type="hidden" value="@item.CompanyID" name="id" />
-                    <input type="submit" value="刪除" class="btn btn-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.Company) 資料嗎? 刪除後是救不回來的哦!')" />
+                        <input type="submit" value="刪除" class="btn btn-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.CompanyName) 資料嗎? 刪除後是救不回來的哦!')" />
                 </form>
             </td>
         </tr>

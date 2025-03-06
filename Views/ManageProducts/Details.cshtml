@@ -7,65 +7,71 @@
 <div>
     <h4>@ViewData["Title"]</h4>
     <hr />
-
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LaunchDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LaunchDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiscontinuedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DiscontinuedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValidityPeriod)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValidityPeriod)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DM)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DM)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DMType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DMType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Feature)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Feature)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company.CompanyID)
-        </dd>
-    </dl>
+    <div class="row">
+        
+        <dl class="row col-lg-5">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Company.CompanyName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Company.CompanyName)
+            </dd>
+            <dt class = "col-sm-3">
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+            <dd class = "col-sm-9">
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+            <dt class = "col-sm-3">
+                @Html.DisplayNameFor(model => model.LaunchDate)
+            </dt>
+            <dd class = "col-sm-9">
+                @Html.DisplayFor(model => model.LaunchDate)
+            </dd>
+            <dt class = "col-sm-3">
+                @Html.DisplayNameFor(model => model.DiscontinuedDate)
+            </dt>
+            <dd class = "col-sm-9">
+                @Html.DisplayFor(model => model.DiscontinuedDate)
+            </dd>
+            <dt class = "col-sm-3">
+                @Html.DisplayNameFor(model => model.ValidityPeriod)
+            </dt>
+            <dd class = "col-sm-9">
+                @* @Html.DisplayFor(model => model.ValidityPeriod) *@
+                @(Model.ValidityPeriod.HasValue ? (Model.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")
+            </dd>
+            <dt class = "col-sm-3">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class = "col-sm-9">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            @* <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.DM)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.DM)
+            </dd> *@
+            <dt class = "col-sm-3">
+                @Html.DisplayNameFor(model => model.Feature)
+            </dt>
+            <dd class = "col-sm-9 ">
+                @Html.Raw(Model.Feature.Replace("\r\n", "<br>"))
+                @* @Html.DisplayFor(model => model.Feature) *@
+            </dd>
+            
+        </dl>
+        <div class="col-lg-7">
+            @if (Model.DM != null)
+            {
+                <img src="~/ProductPhotos/@Model.DM" class="card-img-top img-thumbnail" />
+            }
+        </div>
+    </div>
 </div>
+<hr />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber" class="btn btn-warning">編輯</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber" asp-route-companyid="@Model?.CompanyID" class="btn btn-warning">編輯</a> |
     <a asp-action="Index" class="btn btn-outline-success">回資料列表</a>
 </div>

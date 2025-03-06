@@ -22,7 +22,7 @@ namespace iStudyTest.Controllers
         // GET: Products
         public async Task<IActionResult> Index(string? CompanyID)
         {
-            var products = _context.Product.Include(p => p.Company).AsQueryable();
+            var products = _context.Product.OrderBy(p => p.ProductName).Include(p => p.Company).AsQueryable();
             if (!string.IsNullOrEmpty(CompanyID))
             {
                 products = products.Where(p => p.CompanyID == CompanyID);

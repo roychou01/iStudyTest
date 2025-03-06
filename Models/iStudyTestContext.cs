@@ -158,7 +158,7 @@ public partial class iStudyTestContext : DbContext
             entity.HasKey(e => e.CompanyID).HasName("PK__Insuranc__2D971C4C657F7D7F");
 
             entity.Property(e => e.CompanyID).HasMaxLength(10);
-            entity.Property(e => e.Company).HasMaxLength(50);
+            entity.Property(e => e.CompanyName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Member>(entity =>

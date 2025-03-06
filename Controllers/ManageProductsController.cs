@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iStudyTest.Models;
 using iStudyTest.ViewModels;
+using System.ComponentModel.Design;
+using AspNetCoreGeneratedDocument;
 
 namespace iStudyTest.Controllers
 {
@@ -22,12 +24,23 @@ namespace iStudyTest.Controllers
         // GET: ManageProducts
         public async Task<IActionResult> Index(string companyid = "Chubb017")
         {
-            VMProducts productlist = new VMProducts() {
-                Products = await _context.Product.Where(p => p.CompanyID == companyid).ToListAsync(),
-                Companies = await _context.InsuranceCompany.OrderBy(p => p.Company).ToListAsync()
+            var company = await _context.InsuranceCompany.AsNoTracking().FirstOrDefaultAsync(c => c.CompanyID == companyid);
+            if (company == null)
+            {
+                return NotFound("找不到該保險公司");
+            }
+
+            var products= await _context.Product.AsNoTracking().Where(p => p.CompanyID == companyid).ToListAsync();
+            var companies = await _context.InsuranceCompany.AsNoTracking().OrderBy(c => c.CompanyName).ToListAsync();
+
+            VMProducts productlist = new VMProducts() {            
+                Products = products,
+                Companies = companies
             };
-            ViewData["Company"] = _context.InsuranceCompany.Find(companyid).Company;
+
             ViewData["CompanyID"] = companyid;
+            ViewData["CompanyName"] = company.CompanyName;
+            
             return View(productlist);
 
             //var iStudyTestContext = _context.Product.Include(p => p.Company);
@@ -37,12 +50,14 @@ namespace iStudyTest.Controllers
         // GET: ManageProducts/Create
         public IActionResult Create(string companyid)
         {
-            ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "Company");
-            ViewData["CompanyID"] = companyid;
             var model = new Product
             {
-                LaunchDate = DateTime.Today // 設定為今天
+                LaunchDate = DateTime.Today, // 設定為今天
             };
+            ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyName");
+            ViewData["CompanyID"] = companyid;
+            
+            
             return View(model);
 
         }
@@ -53,22 +68,22 @@ namespace iStudyTest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product, string companyid, IFormFile? newPhoto)
+        public async Task<IActionResult> Create(Product product, string companyid, IFormFile? newdm)
         {
             product.CompanyID = companyid;
             var productid = _context.Product.Find(product.ProductNumber);
             if (productid != null)
             {
                 ViewData["ErrorMsg"] = "該產品編號已被使用";
-                ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "Company");
                 ViewData["CompanyID"] = companyid;
+                ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyName");
                 return View(product);
             }
 
             //加上處理上傳照片的功能
-            if (newPhoto != null && newPhoto.Length != 0)
+            if (newdm != null && newdm.Length != 0)
             {
-                if (newPhoto.ContentType != "image/jpeg" && newPhoto.ContentType != "image/png")
+                if (newdm.ContentType != "image/jpeg" && newdm.ContentType != "image/png")
                 {
                     ViewData["Message"] = "請上傳jpg或png格式的檔案!!";
                     return View(product);
@@ -76,19 +91,18 @@ namespace iStudyTest.Controllers
                 // 取得檔案名稱
                 string fileName = product.ProductNumber + ".jpg";
 
-                // 用一個ProductPhotosPath變數儲存路徑
-                string ProductPhotosPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos", fileName);//取得目的路徑
+                // 用一個ProductDMPath變數儲存路徑
+                string ProductDMPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos", fileName);//取得目的路徑
 
                 // 把檔案儲存於伺服器上
-                using (FileStream stream = new FileStream(ProductPhotosPath, FileMode.Create))
+                using (FileStream stream = new FileStream(ProductDMPath, FileMode.Create))
                 {
-                    newPhoto.CopyTo(stream);
+                    newdm.CopyTo(stream);
                 }
 
-                product.DMType = newPhoto.ContentType;
+                product.DMType = newdm.ContentType;
                 product.DM = fileName;
             }
-
 
             if (ModelState.IsValid)
             {
@@ -96,7 +110,7 @@ namespace iStudyTest.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index),new {companyid=product.CompanyID});
             }
-            ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "Company");
+            ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyName");
             ViewData["CompanyID"] = companyid;
             return View(product);
 
@@ -122,7 +136,7 @@ namespace iStudyTest.Controllers
 
 
         // GET: ManageProducts/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(string id , string companyid)
         {
             if (id == null)
             {
@@ -134,7 +148,9 @@ namespace iStudyTest.Controllers
             {
                 return NotFound();
             }
-            ViewData["CompanyID"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyID", product.CompanyID);
+
+            ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyName");
+            ViewData["CompanyID"] = companyid;
             return View(product);
         }
 
@@ -168,7 +184,7 @@ namespace iStudyTest.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { companyid = product.CompanyID });
             }
             ViewData["CompanyID"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyID", product.CompanyID);
             return View(product);
@@ -205,7 +221,8 @@ namespace iStudyTest.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { companyid = product.CompanyID });
+
         }
 
         private bool ProductExists(string id)
