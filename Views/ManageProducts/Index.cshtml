@@ -7,7 +7,10 @@
 
 <div class="row">
     <div class="col-3">
-        <h5 class="text-center">保險公司</h5>
+        @* <h5 class="text-center">保險公司</h5> *@
+        <p class="text-center">
+            <a class="btn btn-outline-primary btn-lg" asp-controller="InsuranceCompany" asp-action="Index">保險公司列表</a>
+        </p>
         <div class="list-group">
             @foreach (var item in Model.Companies)
             {
@@ -16,9 +19,9 @@
         </div>
     </div>
     <div class="col-9">
-        <h5 class="text-center"><span class="text-danger">@ViewData["CompanyName"]</span>產品管理</h5>
+        <h5 class="text-center"><span class="text-primary-emphasis">@ViewData["CompanyName"]</span> 產品管理</h5>
         <p class="text-end">
-            <a asp-action="Create" asp-route-companyid="@ViewBag.CompanyID" class="btn btn-outline-info">新增商品</a>
+            <a asp-action="Create" asp-route-companyid="@ViewBag.CompanyID" class="btn btn-outline-primary">新增商品</a>
         </p>
         @if (Model.Products.Count() == 0)
         {

@@ -166,6 +166,16 @@ namespace iStudyTest.Controllers
                 return NotFound();
             }
 
+            // **ChatGPT建議：查詢資料庫中的原始 Product 資料**
+            var existingProduct = await _context.Product
+                .AsNoTracking()  // 避免 EF Core 追蹤，防止衝突
+                .FirstOrDefaultAsync(p => p.ProductNumber == id);
+
+            if (existingProduct == null)
+            {
+                return NotFound();
+            }
+
             //加上處理上傳照片的功能
             if (newdm != null && newdm.Length != 0)
             {
@@ -175,19 +185,21 @@ namespace iStudyTest.Controllers
                     return View(product);
                 }
                 string fileName = product.ProductNumber + ".jpg";
-
                 string ProductDMPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos", fileName);
 
                 using (FileStream stream = new FileStream(ProductDMPath, FileMode.Create))
                 {
-                    newdm.CopyTo(stream);
+                   await newdm.CopyToAsync(stream);
                 }
-
                 product.DMType = newdm.ContentType;
                 product.DM = fileName;
             }
-
-
+            else
+            {
+                // **ChatGPT建議：沒有上傳新圖片時，保留原始 DM 資料**
+                product.DM = existingProduct.DM;
+                product.DMType = existingProduct.DMType;
+            }
 
             if (ModelState.IsValid)
             {

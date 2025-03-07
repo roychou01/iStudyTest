@@ -7,7 +7,7 @@
 <h3>@ViewData["Title"]</h3>
 
 <p>
-    <a asp-action="Create" class="btn btn-info">新增保險公司</a>
+    <a asp-action="Create" class="btn btn-outline-primary">新增保險公司</a>
 </p>
 <table class="table table-striped table-hover">
     <thead>
@@ -22,22 +22,29 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyID)
-            </td>
-            <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyID)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td class="d-flex">
-                <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-warning">修改</a> 
-                <form asp-action="Delete">
-                    <input type="hidden" value="@item.CompanyID" name="id" />
-                        <input type="submit" value="刪除" class="btn btn-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.CompanyName) 資料嗎? 刪除後是救不回來的哦!')" />
-                </form>
-            </td>
-        </tr>
-}
+                </td>
+                <td class="d-flex">
+                    <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-outline-warning"><i class="bi bi-pencil-fill"></i></a>
+                    <form asp-action="Delete">
+                        <input type="hidden" value="@item.CompanyID" name="id" />
+                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.CompanyName) 資料嗎? 刪除後是救不回來的哦!')"><i class="bi bi-trash3"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<hr /> 
+<div>
+    <a asp-controller="ManageProducts" asp-action="Index" class="btn btn-outline-success">回到商品管理</a>
+</div>
+
