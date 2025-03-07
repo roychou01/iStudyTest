@@ -5,11 +5,11 @@
 }
 
 <div>
-    <h4>@ViewData["Title"]</h4>
+    <h3 class="text-success">保險商品詳細資料<i class="bi bi-info-circle"></i></h3>
     <hr />
-    <div class="row">
+    <div class="row" >
         
-        <dl class="row col-lg-5">
+        <dl class="row col-lg-5" >
             <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.Company.CompanyName)
             </dt>
@@ -65,13 +65,13 @@
         <div class="col-lg-7">
             @if (Model.DM != null)
             {
-                <img src="~/ProductPhotos/@Model.DM" class="card-img-top img-thumbnail" />
+                <img src="~/ProductPhotos/@Model.DM" class="card-img-top img-thumbnail" alt="產品圖片" />
             }
         </div>
     </div>
 </div>
 <hr />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber" asp-route-companyid="@Model?.CompanyID" class="btn btn-warning">編輯</a> |
-    <a asp-action="Index" class="btn btn-outline-success">回資料列表</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductNumber" asp-route-companyid="@Model?.CompanyID" class="btn btn-outline-warning">編輯</a> |
+    <a asp-action="Index" asp-route-companyid="@Model?.CompanyID" class="btn btn-outline-success">回資料列表</a>
 </div>

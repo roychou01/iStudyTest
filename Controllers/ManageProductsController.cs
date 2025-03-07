@@ -159,12 +159,35 @@ namespace iStudyTest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProductNumber,ProductName,LaunchDate,DiscontinuedDate,ValidityPeriod,Type,CompanyID,DM,DMType,Feature")] Product product)
+        public async Task<IActionResult> Edit(string id, [Bind("ProductNumber,ProductName,LaunchDate,DiscontinuedDate,ValidityPeriod,Type,CompanyID,DM,DMType,Feature")] Product product, IFormFile? newdm)
         {
             if (id != product.ProductNumber)
             {
                 return NotFound();
             }
+
+            //加上處理上傳照片的功能
+            if (newdm != null && newdm.Length != 0)
+            {
+                if (newdm.ContentType != "image/jpeg" && newdm.ContentType != "image/png")
+                {
+                    ViewData["Message"] = "請上傳jpg或png格式的檔案!!";
+                    return View(product);
+                }
+                string fileName = product.ProductNumber + ".jpg";
+
+                string ProductDMPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos", fileName);
+
+                using (FileStream stream = new FileStream(ProductDMPath, FileMode.Create))
+                {
+                    newdm.CopyTo(stream);
+                }
+
+                product.DMType = newdm.ContentType;
+                product.DM = fileName;
+            }
+
+
 
             if (ModelState.IsValid)
             {
@@ -229,5 +252,7 @@ namespace iStudyTest.Controllers
         {
             return _context.Product.Any(e => e.ProductNumber == id);
         }
+
+       
     }
 }

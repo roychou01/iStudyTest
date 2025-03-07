@@ -4,12 +4,12 @@
     ViewData["Title"] = "Edit";
 }
 
-<h4>編輯商品</h4>
+<h3 class="text-warning">編輯保險商品<i class="bi bi-pencil-square"></i></h3>
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-5">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ProductNumber" />
             <div class="form-group">
@@ -47,12 +47,12 @@
                 <select asp-for="CompanyID" class="form-control" asp-items="ViewBag.Company"></select>
                 <span asp-validation-for="CompanyID" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+             <div class="form-group">
                 <label asp-for="DM" class="control-label"></label>
-                <input asp-for="DM" class="form-control" />
-                <span asp-validation-for="DM" class="text-danger"></span>
-            </div>
-            
+                <input type="file" name="newdm" id="dm" class="form-control" />
+                <span class="text-danger">@ViewData["Message"]</span>
+            </div> 
 
             <div class="form-group">
                 <label asp-for="Feature" class="control-label"></label>
@@ -64,6 +64,14 @@
             </div>
         </form>
     </div>
+    <div class="col-md-7">
+        @if (Model.DM != null)
+        {
+            <img src="~/ProductPhotos/@Model.DM" class="card-img-top img-thumbnail" alt="產品圖片" />
+        }
+
+        <img id="dmPreview" class="img-fluid" />
+    </div>
 </div>
 
 <div>
@@ -72,4 +80,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $('#dm').change(function(){
+            let file = this.files[0];
+
+            let reader = new FileReader();
+
+            reader.onload=function(event){
+                 $('#dmPreview').attr('src',event.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
 }
