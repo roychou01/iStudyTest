@@ -18,5 +18,5 @@ public partial class MemberLogin
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
-    public virtual Member EmailNavigation { get; set; } = null!;
+    //public virtual Member EmailNavigation { get; set; } = null!;
 }

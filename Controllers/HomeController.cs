@@ -1,5 +1,6 @@
 using iStudyTest.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace iStudyTest.Controllers
@@ -7,15 +8,17 @@ namespace iStudyTest.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly iStudyTestContext _context;
+        public HomeController(ILogger<HomeController> logger, iStudyTestContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var dm = await _context.Product.Where(b => b.DM != null).OrderByDescending(b => b.LaunchDate).Take(5).ToListAsync();
+            return View(dm);
         }
 
         public IActionResult Privacy()

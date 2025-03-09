@@ -188,11 +188,11 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.Email).HasMaxLength(20);
             entity.Property(e => e.Password).HasMaxLength(64);
 
-            entity.HasOne(d => d.EmailNavigation).WithOne(p => p.MemberLogin)
-                .HasPrincipalKey<Member>(p => p.Email)
-                .HasForeignKey<MemberLogin>(d => d.Email)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__MemberLog__Email__5CD6CB2B");
+            //entity.HasOne(d => d.EmailNavigation).WithOne(p => p.MemberLogin)
+            //    .HasPrincipalKey<Member>(p => p.Email)
+            //    .HasForeignKey<MemberLogin>(d => d.Email)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("FK__MemberLog__Email__5CD6CB2B");
         });
 
         modelBuilder.Entity<Product>(entity =>

@@ -253,11 +253,15 @@ namespace iStudyTest.Controllers
             if (product != null)
             {
                 _context.Product.Remove(product);
+
+                //加入刪除圖片的程式
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductPhotos", product.DM??string.Empty);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { companyid = product.CompanyID });
-
         }
 
         private bool ProductExists(string id)

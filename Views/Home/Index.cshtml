@@ -1,8 +1,53 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<iStudyTest.Models.Product>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    Layout = "_MemberLayout";
+    ViewData["Title"] = "Home Page";
+    int c = 0;
+}
+<style>
+    /* 加深底部指示器的顏色 */
+    .carousel-indicators button {
+        background-color: rgba(0, 0, 0, 0.75) !important;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    /* 調整 active 指示器的樣式 */
+    .carousel-indicators .active {
+        background-color: rgba(255, 255, 255, 1) !important; /* 讓選中的更明顯 */
+    }
+</style>
+
+<div id="HomePhoto" class="carousel carousel-dark" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <button type="button" data-bs-target="#HomePhoto" class="@(i == 0 ? "active":"")" data-bs-slide-to="@i" aria-current="true" aria-label="Slide @i"></button>
+        }
+
+    </div>
+    <div class="carousel-inner">
+        @foreach (var item in Model)
+        {
+            <div class="carousel-item @(c == 0 ? "active":"")">
+                <img src="~/ProductPhotos/@item.DM" class="d-block w-50 img-thumbnail mx-auto" alt="@item.Feature">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="bg-dark bg-opacity-75 text-white p-2 rounded">@item.ProductName</h3>
+
+                </div>
+            </div>
+            c++;
+        }
+    </div>
+    <button class="carousel-control-prev " type="button" data-bs-target="#HomePhoto" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#HomePhoto" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+

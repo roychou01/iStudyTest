@@ -11,17 +11,24 @@
         
         <dl class="row col-lg-5" >
             <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+            <dt class="col-sm-3">
                 @Html.DisplayNameFor(model => model.Company.CompanyName)
             </dt>
             <dd class="col-sm-9">
                 @Html.DisplayFor(model => model.Company.CompanyName)
             </dd>
-            <dt class = "col-sm-3">
-                @Html.DisplayNameFor(model => model.ProductName)
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Company.CompanyID)
             </dt>
-            <dd class = "col-sm-9">
-                @Html.DisplayFor(model => model.ProductName)
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Company.CompanyID)
             </dd>
+            
             <dt class = "col-sm-3">
                 @Html.DisplayNameFor(model => model.LaunchDate)
             </dt>

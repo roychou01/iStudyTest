@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<iStudyTest.Models.Product>
 
 @{
+    Layout = "_MemberLayout";
     ViewData["Title"] = "Index";
 }
 
@@ -9,36 +10,35 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-sm table-hover">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Company.CompanyName)
+            </th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.LaunchDate)
-            </th>
-            <th>
+            </th> *@
+            @* <th>
                 @Html.DisplayNameFor(model => model.DiscontinuedDate)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.ValidityPeriod)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.DM)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DMType)
-            </th>
+            </th> *@
+            
             <th>
                 @Html.DisplayNameFor(model => model.Feature)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyID)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -50,33 +50,33 @@
                     @Html.DisplayFor(modelItem => item.ProductName)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Company.CompanyName)
+                </td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.LaunchDate)
-                </td>
-                <td>
+                </td> *@
+                @* <td>
                     @Html.DisplayFor(modelItem => item.DiscontinuedDate)
-                </td>
+                </td> *@
                 <td>
                     @Html.DisplayFor(modelItem => item.ValidityPeriod)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
-                <td>
+                @* <td>
                     @Html.DisplayFor(modelItem => item.DM)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DMType)
-                </td>
-                <td>
+                </td> *@
+                <td width="30%">
                     @Html.DisplayFor(modelItem => item.Feature)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyID)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductNumber">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductNumber">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductNumber">Delete</a>
+                
+                <td >
+                    <div class="d-flex flex-column flex-sm-column flex-md-row">
+                    <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-outline-info">裏</a>
+                    <a asp-action="Edit" asp-route-id="@item.ProductNumber" class="btn btn-outline-warning">修</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductNumber" class="btn btn-outline-danger">刪</a>
+                    </div>
                 </td>
             </tr>
         }
