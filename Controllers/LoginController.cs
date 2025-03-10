@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Reflection.Metadata;
+using NuGet.Protocol;
 
 namespace iStudyTest.Controllers
 {
@@ -21,22 +22,18 @@ namespace iStudyTest.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(MemberLogin login)
+
+        public async Task<IActionResult> Login(Member member)
         {
-            string sql = "select * from MemberLogin where Email = @Email and Password = @Password";
-            SqlParameter[] parameters =
-            {
-                new SqlParameter("@Email", login.Email),
-                new SqlParameter("@Password",login.Password)
-            };
+            var result = await _context.Member.Where(m => m.Email == member.Email && m.Password == _context.ComputeSha256Hash(member.Password)).FirstOrDefaultAsync();
 
-            var result = await _context.MemberLogin.FromSqlRaw(sql, parameters).FirstOrDefaultAsync();
-
+            //如果帳密正確,導入後台頁面
             if (result != null)
             {
-                HttpContext.Session.SetString("Member", result.Email);
-                return RedirectToAction("Index", "Products");
+                //發給證明,證明他已經登入
+                HttpContext.Session.SetString("MemberInfo", result.ToJson());
+
+                return RedirectToAction("Index", "ProductList");
             }
             else //如果帳密不正確,回到登入頁面,並告知帳密錯誤
             {

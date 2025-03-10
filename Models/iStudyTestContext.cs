@@ -25,8 +25,6 @@ public partial class iStudyTestContext : DbContext
 
     public virtual DbSet<Member> Member { get; set; }
 
-    public virtual DbSet<MemberLogin> MemberLogin { get; set; }
-
     public virtual DbSet<Product> Product { get; set; }
 
     public virtual DbSet<ServiceDetail> ServiceDetail { get; set; }
@@ -166,9 +164,10 @@ public partial class iStudyTestContext : DbContext
             entity.HasKey(e => e.MemberID).HasName("PK__Member__0CF04B3838D80D78");
 
             entity.HasIndex(e => e.Email, "UQ__Member__A9D105346D013126").IsUnique();
-
+            
             entity.Property(e => e.MemberID)
                 .HasMaxLength(6)
+                .HasDefaultValueSql("([dbo].[fnGetNewMemberID]())")
                 .IsFixedLength();
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.Email).HasMaxLength(20);
@@ -179,20 +178,7 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.phone)
                 .HasMaxLength(15)
                 .IsFixedLength();
-        });
-
-        modelBuilder.Entity<MemberLogin>(entity =>
-        {
-            entity.HasKey(e => e.Email).HasName("PK__MemberLo__A9D10535835E7C13");
-
-            entity.Property(e => e.Email).HasMaxLength(20);
             entity.Property(e => e.Password).HasMaxLength(64);
-
-            //entity.HasOne(d => d.EmailNavigation).WithOne(p => p.MemberLogin)
-            //    .HasPrincipalKey<Member>(p => p.Email)
-            //    .HasForeignKey<MemberLogin>(d => d.Email)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("FK__MemberLog__Email__5CD6CB2B");
         });
 
         modelBuilder.Entity<Product>(entity =>

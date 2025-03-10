@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace iStudyTest.Models;
 
-public partial class Member
+public class MemberData
 {
     [Display(Name = "會員編號")]
     [StringLength(6, MinimumLength = 6)]
@@ -30,15 +30,26 @@ public partial class Member
     [Display(Name = "手機號碼")]
     public string phone { get; set; } = null!;
 
-    [Display(Name = "會員密碼")]
+    [Display(Name = "密碼", Prompt = "密碼為8-16碼")]
     [Required(ErrorMessage = "必填")]
     [StringLength(16, MinimumLength = 8, ErrorMessage = "密碼為8-16碼")]
     [MinLength(8)]
     [MaxLength(16)]
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
-
-    public virtual ICollection<IncomeAndSpend> IncomeAndSpend { get; set; } = new List<IncomeAndSpend>();
-
-    public virtual ICollection<ServiceList> ServiceList { get; set; } = new List<ServiceList>();
 }
+[ModelMetadataType(typeof(MemberData))]
+public partial class Member
+{
+    [NotMapped]  //這項要在DB first重建後再加
+    [Display(Name = "再填一次密碼", Prompt = "密碼為8-16碼")]
+    [Required(ErrorMessage = "必填")]
+    [Compare(nameof(Password), ErrorMessage = "密碼兩次輸入不相同")]
+    [DataType(DataType.Password)]
+    public string PasswordConfirm { get; set; } = null!;
+}
+
+
+
+
+
