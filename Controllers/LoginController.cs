@@ -45,9 +45,44 @@ namespace iStudyTest.Controllers
         public IActionResult Logout()
         {
             //5.4.2 在Logout Action中清除Session
-            HttpContext.Session.Remove("Member");//清掉Manager的Session
-            return RedirectToAction("Index", "Home");
+            HttpContext.Session.Remove("MemberInfo");//清掉
+            return RedirectToAction("Index", "ProductsPreview");
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(Member member)
+        {
+            ModelState.Remove("MemberID");
+
+            member.Password = _context.ComputeSha256Hash(member.Password);
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(member);
+                await _context.SaveChangesAsync();
+
+                TempData["RegisterMessage"] = "OK";
+
+                return RedirectToAction(nameof(Login));
+            }
+
+            return View(member);
+        }
+
+        public bool MemberAccountCheck(string email)
+        {
+
+            var result = _context.Member.Where(m => m.Email == email).FirstOrDefault();
+            Task.Delay(1000).Wait();
+
+            return result == null;
         }
 
     }
 }
+

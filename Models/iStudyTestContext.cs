@@ -164,7 +164,7 @@ public partial class iStudyTestContext : DbContext
             entity.HasKey(e => e.MemberID).HasName("PK__Member__0CF04B3838D80D78");
 
             entity.HasIndex(e => e.Email, "UQ__Member__A9D105346D013126").IsUnique();
-            
+
             entity.Property(e => e.MemberID)
                 .HasMaxLength(6)
                 .HasDefaultValueSql("([dbo].[fnGetNewMemberID]())")
@@ -175,10 +175,10 @@ public partial class iStudyTestContext : DbContext
                 .HasMaxLength(5)
                 .IsFixedLength();
             entity.Property(e => e.Name).HasMaxLength(27);
+            entity.Property(e => e.Password).HasMaxLength(64);
             entity.Property(e => e.phone)
                 .HasMaxLength(15)
                 .IsFixedLength();
-            entity.Property(e => e.Password).HasMaxLength(64);
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -188,7 +188,7 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.ProductNumber).HasMaxLength(10);
             entity.Property(e => e.CompanyID).HasMaxLength(10);
             entity.Property(e => e.DM).HasMaxLength(20);
-            entity.Property(e => e.DMType).HasMaxLength(5);
+            entity.Property(e => e.DMType).HasMaxLength(10);
             entity.Property(e => e.Feature).HasMaxLength(200);
             entity.Property(e => e.ProductName).HasMaxLength(30);
             entity.Property(e => e.Type).HasMaxLength(10);
@@ -237,7 +237,9 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.CreateDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.CurrentBusiness).HasMaxLength(7);
+            entity.Property(e => e.CurrentBusiness)
+                .HasMaxLength(7)
+                .IsFixedLength();
             entity.Property(e => e.MemberID)
                 .HasMaxLength(6)
                 .IsFixedLength();

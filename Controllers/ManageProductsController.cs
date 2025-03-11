@@ -52,7 +52,7 @@ namespace iStudyTest.Controllers
         {
             var model = new Product
             {
-                LaunchDate = DateTime.Today, // 設定為今天
+                LaunchDate = DateOnly.FromDateTime(DateTime.Today), // 設定為今天
             };
             ViewData["Company"] = new SelectList(_context.InsuranceCompany, "CompanyID", "CompanyName");
             ViewData["CompanyID"] = companyid;
@@ -261,7 +261,7 @@ namespace iStudyTest.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index), new { companyid = product.CompanyID });
+            return RedirectToAction(nameof(Index), new { companyid = product?.CompanyID });
         }
 
         private bool ProductExists(string id)
