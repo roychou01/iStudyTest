@@ -15,7 +15,7 @@ public class MemberData
 
     [Display(Name = "生日")]
     [DataType(DataType.Date)]
-    public DateTime Birthday { get; set; }
+    public DateOnly Birthday { get; set; }
 
     [Display(Name = "地址")]
     [DataType(DataType.MultilineText)]
@@ -65,7 +65,7 @@ public class EmployeeData
 
     [Display(Name = "員工生日")]
     [DataType(DataType.Date)]
-    public DateTime Birthday { get; set; }
+    public DateOnly Birthday { get; set; }
 
     [Display(Name = "員工地址")]
     [DataType(DataType.MultilineText)]
@@ -80,7 +80,7 @@ public class EmployeeData
 
     [Display(Name = "員工到職日")]
     [DataType(DataType.Date)]
-    public DateTime? HireDate { get; set; }
+    public DateOnly? HireDate { get; set; }
 
     [Display(Name = "員工職稱")]
     public string? JobTitle { get; set; }
@@ -101,7 +101,7 @@ public class EmployeeData
 
     [Display(Name = "員工離職日")]
     [DataType(DataType.Date)]
-    public DateTime? DueDate { get; set; }
+    public DateOnly? DueDate { get; set; }
 }
     [ModelMetadataType(typeof(EmployeeData))]
     public partial class Employee
@@ -138,11 +138,11 @@ public class ProductData
 
     [Display(Name = "起始日")]
     [DataType(DataType.Date)]
-    public DateTime LaunchDate { get; set; }
+    public DateOnly LaunchDate { get; set; }
 
     [Display(Name = "停售日")]
     [DataType(DataType.Date)]
-    public DateTime? DiscontinuedDate { get; set; }
+    public DateOnly? DiscontinuedDate { get; set; }
 
     [Display(Name = "期數")]
     public int? ValidityPeriod { get; set; }
