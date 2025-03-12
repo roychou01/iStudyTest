@@ -189,7 +189,6 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.CompanyID).HasMaxLength(10);
             entity.Property(e => e.DM).HasMaxLength(20);
             entity.Property(e => e.DMType).HasMaxLength(10);
-            entity.Property(e => e.Feature).HasMaxLength(200);
             entity.Property(e => e.ProductName).HasMaxLength(30);
             entity.Property(e => e.Type).HasMaxLength(10);
 

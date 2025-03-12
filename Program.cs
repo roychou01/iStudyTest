@@ -1,5 +1,6 @@
 using iStudyTest.Models;
 using Microsoft.EntityFrameworkCore;
+using iStudyTest.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,19 +9,19 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("iStudyTestConnet
 
 //µù¥USession
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
+builder.Services.AddSession(options =>{
     options.IdleTimeout = TimeSpan.FromMinutes(10);
 });
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 //µù¥Uµn¿ýª¬ºAFilter
-//builder.Services.AddScoped<LoginStatusFilter>();
-//builder.Services.AddControllersWithViews(options =>
-//{
-//    options.Filters.Add<LogFilter>();
-//});
+builder.Services.AddScoped<LoginStatusFilter>();
+
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<LogFilter>();
+});
 
 var app = builder.Build();
 

@@ -25,6 +25,8 @@ public class MemberData
     public string Gender { get; set; } = null!;
 
     [Display(Name = "電子郵件")]
+    [Required(ErrorMessage = "電子郵件是必填欄位")]
+    [EmailAddress(ErrorMessage = "請輸入有效的電子郵件地址")]
     public string Email { get; set; } = null!;
 
     [Display(Name = "手機號碼")]
@@ -38,16 +40,16 @@ public class MemberData
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 }
-    [ModelMetadataType(typeof(MemberData))]
-    public partial class Member
-    {
-        [NotMapped]  //這項要在DB first重建後再加
-        [Display(Name = "再填一次密碼", Prompt = "密碼為8-16碼")]
-        [Required(ErrorMessage = "必填")]
-        [Compare(nameof(Password), ErrorMessage = "密碼兩次輸入不相同")]
-        [DataType(DataType.Password)]
-        public string PasswordConfirm { get; set; } = null!;
-    }
+[ModelMetadataType(typeof(MemberData))]
+public partial class Member
+{
+    [NotMapped]  //這項要在DB first重建後再加
+    [Display(Name = "再填一次密碼", Prompt = "密碼為8-16碼")]
+    [Required(ErrorMessage = "必填")]
+    [Compare(nameof(Password), ErrorMessage = "密碼兩次輸入不相同")]
+    [DataType(DataType.Password)]
+    public string PasswordConfirm { get; set; } = null!;
+}
 
 
 public class EmployeeData

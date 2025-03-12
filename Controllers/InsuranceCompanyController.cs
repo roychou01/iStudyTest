@@ -35,7 +35,7 @@ namespace iStudyTest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyID,Company")] InsuranceCompany insuranceCompany)
+        public async Task<IActionResult> Create([Bind("CompanyID,CompanyName")] InsuranceCompany insuranceCompany)
         {
             var companyid = _context.InsuranceCompany.Find(insuranceCompany.CompanyID);
             var companyname = _context.InsuranceCompany.Find(insuranceCompany.CompanyName);
@@ -77,7 +77,7 @@ namespace iStudyTest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CompanyID,Company")] InsuranceCompany insuranceCompany)
+        public async Task<IActionResult> Edit(string id, [Bind("CompanyID,CompanyName")] InsuranceCompany insuranceCompany)
         {
             if (id != insuranceCompany.CompanyID)
             {
