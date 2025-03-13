@@ -6,6 +6,7 @@
     int c = 0;
 }
 <style>
+
     /* 加深底部指示器的顏色 */
     .carousel-indicators button {
         background-color: rgba(0, 0, 0, 0.75) !important;
@@ -20,6 +21,23 @@
     }
 </style>
 
+<div class="text-center position-relative text-white" style="
+    background-image: url('/otherpicture/city.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 20vh; /* 設定為畫面高度的一半 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);">
+
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5);"></div>
+
+    <h2 class="display-4 position-relative">歡迎來到金金計較保險平臺</h2>
+    <p class="lead position-relative">這裡提供您各項保險商品資訊</p>
+</div>
+<hr />
 <div id="HomePhoto" class="carousel carousel-dark" data-bs-ride="carousel">
     <div class="carousel-indicators">
         @for (int i = 0; i < Model.Count(); i++)

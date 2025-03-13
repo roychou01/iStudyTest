@@ -1,0 +1,112 @@
+﻿@model iStudyTest.Models.Member
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>會員註冊</h1>
+
+<hr />
+<div class="row">
+    <div class="col-lg-6 col-md-8">
+        <form asp-action="Register" id="registerForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday" class="control-label"></label>
+                <input asp-for="Birthday" class="form-control" />
+                <span asp-validation-for="Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input type="radio" class="btn-check" id="male" value="M" asp-for="Gender" autocomplete="off">
+                <label class="btn btn-outline-primary" for="male">男</label>
+                <input type="radio" class="btn-check" id="female" value="F" asp-for="Gender" autocomplete="off">
+                <label class="btn btn-outline-danger" for="female">女</label>
+                <input type="radio" class="btn-check" id="non" value="N" asp-for="Gender" autocomplete="off" checked>
+                <label class="btn btn-outline-secondary" for="non">不知道</label>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <span class="text-danger" id="EmailCheck"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="phone" class="control-label"></label>
+                <input asp-for="phone" class="form-control" />
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordConfirm" class="control-label"></label>
+                <input asp-for="PasswordConfirm" class="form-control" />
+                <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="註冊" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-primary">回到首頁</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+        $('#Email').on('change',function (){
+
+            if($('#Email').next('.text-danger').text()!=''){
+                $('#EmailCheck').text('');
+                return;
+            }
+
+                $('#EmailCheck').html(`<span class="text-secondary"><div class="spinner-border text-secondary"></div>檢查Email中....</span>`);
+
+                $.ajax({
+                    url:`/Login/MemberEmailCheck?email=`+$('#Email').val(),
+                    type:'get',
+                    success:function(data){
+                        if(data){
+                            //帳號可用
+                            $('#EmailCheck').text('Email可用');
+                        }
+                        else{
+                            //帳號不可用
+                             $('#EmailCheck').text('Email不可用');
+                             //要禁止form submit
+                        }
+                    }
+                });
+        });
+
+        //禁止form submit
+        $('#registerForm').on('submit',function(e){
+            if($('#EmailCheck').text()=='Email重複'){
+                e.preventDefault();
+            }
+        });
+
+    </script>
+}
