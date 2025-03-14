@@ -1,0 +1,54 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    var member = Context.Items["Member"] as Member;
+    ViewData["Title"] = "Index";
+}
+
+<h2>會員留單查詢</h2>
+
+<p>
+    <a asp-action="Create" asp-route-id="@member.MemberID" class="btn btn-outline-info">線上留單</a>
+</p>
+@* <form asp-action="Create" >
+    <input type="hidden" value="@member.MemberID" name="id" />
+    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('您確定要新增服務嗎?')">
+        <i class="bi bi-envelope-arrow-up"></i>
+    </button>
+</form> *@
+
+
+<table class="table table-info table-striped">
+    <thead>
+        <tr>
+            <th>
+                服務單號
+            </th>
+            <th>
+                留單日期
+            </th>
+            <th>
+               狀態
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.ServiceNumber
+                </td>
+                <td>
+                    @item.CreateDate
+                </td>
+                <td>
+                    @item.StateName
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+

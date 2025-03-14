@@ -48,6 +48,7 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.EmployeeID)
                 .HasMaxLength(7)
                 .IsUnicode(false)
+                .HasDefaultValueSql("([dbo].[GetEmployeeID]())")
                 .IsFixedLength();
             entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.EmployeePhoto).HasMaxLength(20);
@@ -232,6 +233,7 @@ public partial class iStudyTestContext : DbContext
             entity.Property(e => e.ServiceNumber)
                 .HasMaxLength(11)
                 .IsUnicode(false)
+                .HasDefaultValueSql("([dbo].[GetServiceID]())")
                 .IsFixedLength();
             entity.Property(e => e.CreateDate)
                 .HasDefaultValueSql("(getdate())")
