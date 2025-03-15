@@ -1,0 +1,53 @@
+﻿@model IEnumerable<iStudyTest.Models.ServiceList>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentBusiness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateCodeNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentBusiness)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.MemberID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateCodeNavigation.StateCode)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ServiceNumber">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ServiceNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ServiceNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

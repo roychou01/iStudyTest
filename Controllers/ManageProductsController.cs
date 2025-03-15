@@ -155,11 +155,10 @@ namespace iStudyTest.Controllers
         }
 
         // POST: ManageProducts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ProductNumber,ProductName,LaunchDate,DiscontinuedDate,ValidityPeriod,Type,CompanyID,DM,DMType,Feature")] Product product, IFormFile? newdm)
+        public async Task<IActionResult> Edit(string id,Product product, IFormFile? newdm)
         {
             if (id != product.ProductNumber)
             {

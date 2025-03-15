@@ -94,7 +94,7 @@ namespace iStudyTest.Controllers
         // POST: Members/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MemberID,Name,Birthday,Address,Gender,Email,phone,Password")] Member member)
+        public async Task<IActionResult> Edit(string id, Member member)
         {
             if (id != member.MemberID)
             {

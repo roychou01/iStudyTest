@@ -8,68 +8,41 @@
     <h3 class="text-success">保險商品詳細資料<i class="bi bi-info-circle"></i></h3>
     <hr />
     <div class="row">
-
-        <dl class="row col-lg-5">
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Company.CompanyName)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Company.CompanyName)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.ProductName)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.ProductName)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.LaunchDate)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.LaunchDate)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.DiscontinuedDate)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.DiscontinuedDate)
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.ValidityPeriod)
-            </dt>
-            <dd class="col-sm-9">
-                @* @Html.DisplayFor(model => model.ValidityPeriod) *@
-                @(Model.ValidityPeriod.HasValue ? (Model.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")
-            </dd>
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Type)
-            </dt>
-            <dd class="col-sm-9">
-                @Html.DisplayFor(model => model.Type)
-            </dd>
-            @* <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.DM)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.DM)
-            </dd> *@
-            <dt class="col-sm-3">
-                @Html.DisplayNameFor(model => model.Feature)
-            </dt>
-            <dd class="col-sm-9 ">
-                @Html.Raw(Model.Feature.Replace("\r\n", "<br>"))
-                @* @Html.DisplayFor(model => model.Feature) *@
-            </dd>
-
-        </dl>
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             @if (Model.DM != null)
             {
                 <img src="~/ProductPhotos/@Model.DM" class="card-img-top img-thumbnail" alt="產品圖片" />
             }
         </div>
+        <div class="col-lg-6">
+            <dl>
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.Company.CompanyName)</dt>
+                <dd class="ms-3">@Html.DisplayFor(model => model.Company.CompanyName)</dd>
+
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.ProductName)</dt>
+                <dd class="ms-3">@Html.DisplayFor(model => model.ProductName)</dd>
+
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.LaunchDate)</dt>
+                <dd class="ms-3">@Html.DisplayFor(model => model.LaunchDate)</dd>
+
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.DiscontinuedDate)</dt>
+                <dd class="ms-3">@Html.DisplayFor(model => model.DiscontinuedDate)</dd>
+
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.ValidityPeriod)</dt>
+                <dd class="ms-3">
+                    @(Model.ValidityPeriod.HasValue ? (Model.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")
+                </dd>
+
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.Type)</dt>
+                <dd class="ms-3">@Html.DisplayFor(model => model.Type)</dd>
+
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.Feature)</dt>
+                <dd class="ms-3">@Html.Raw(Model.Feature.Replace("\r\n", "<br>"))</dd>
+            </dl>
+            <div >
+                <a asp-action="Index" class="btn btn-success">回商品總覽</a>
+            </div>
+        </div>
     </div>
 </div>
-<div>
-    <a asp-action="Index" class="btn btn-outline-success">回商品總覽</a>
-</div>
+

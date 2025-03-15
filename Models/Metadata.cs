@@ -129,7 +129,7 @@ public class EmployeeRolesData
 public class ProductData
 {
     [Display(Name = "編號")]
-    [StringLength(10, MinimumLength = 3, ErrorMessage = "編號 3~10字")]
+    [StringLength(10, MinimumLength = 1, ErrorMessage = "編號 1~10字")]
     [Required(ErrorMessage = "必填")]
     public string ProductNumber { get; set; } = null!;
 
