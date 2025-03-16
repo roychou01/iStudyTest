@@ -21,6 +21,11 @@ namespace iStudyTest.Controllers
             return View(dm);
         }
 
+        public IActionResult CompanyProfile()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

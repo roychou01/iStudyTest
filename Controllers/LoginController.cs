@@ -96,15 +96,24 @@ namespace iStudyTest.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, Member member)
         {
+                        
             if (id != member.MemberID)
             {
                 return NotFound();
             }
+            
+            //ModelState.Remove("Email");
+
+            ModelState.Clear(); //清除ModelState
+            TryValidateModel(member);  //重新執行Model驗證
+
+            member.Password = _context.ComputeSha256Hash(member.Password); 
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    
                     _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
@@ -119,7 +128,9 @@ namespace iStudyTest.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                ViewData["Message"]= "修改成功";
+                //return RedirectToAction("Index", "Home");
+                return View(member);
             }
             return View(member);
         }

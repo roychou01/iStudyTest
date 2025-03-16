@@ -50,7 +50,7 @@
         @foreach (var item in Model)
         {
             <div class="carousel-item @(c == 0 ? "active":"")">
-                <img src="~/ProductPhotos/@item.DM" class="d-block w-50 img-thumbnail mx-auto" alt="@item.Feature">
+                <img src="~/ProductPhotos/@item.DM" class="d-block w-100 img-thumbnail mx-auto" alt="@item.Feature">
                 <div class="carousel-caption d-none d-md-block">
                     <h3 class="bg-dark bg-opacity-75 text-white p-2 rounded">@item.ProductName</h3>
 

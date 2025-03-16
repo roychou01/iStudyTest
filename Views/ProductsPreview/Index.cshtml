@@ -6,33 +6,34 @@
 
 <h3 class="text-center">商品展示頁</h3>
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card mb-4 ">
-                @if (item.DM != null)
-                {
-                    <img src="~/ProductPhotos/@item.DM" class="card-img-top img-thumbnail"
-                         style="max-width: 100%; height: 300px; object-fit: fill;" />
-                }
-                <div class="card-body">
-                    <h4 class="card-title">@Html.DisplayFor(modelItem => @item.ProductName)</h4>
-                    <p class="card-text">
-                       @*  @Html.DisplayNameFor(model => @model.FirstOrDefault().Company) ： *@
-                        <h5 class="text-success">@Html.DisplayFor(modelItem => @item.Company.CompanyName)<br></h5>
-                        @Html.Raw(item.Feature.Replace("\r\n", "<br>"))
-                    </p>
-                </div>
-                <div class="card-footer ">
-                    <p class="text-end">
-                        <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">詳細內容</a>
-                    </p>
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card mb-4 ">
+                    @if (item.DM != null)
+                    {
+                        <img src="~/ProductPhotos/@item.DM" class="card-img-top img-thumbnail"
+                             style="max-width: 100%; height: 300px; object-fit: fill;" />
+                    }
+                    <div class="card-body">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => @item.ProductName)</h4>
+                        <p class="card-text">
+                           @*  @Html.DisplayNameFor(model => @model.FirstOrDefault().Company) ： *@
+                            <h5 class="text-success">@Html.DisplayFor(modelItem => @item.Company.CompanyName)<br></h5>
+                            @Html.Raw(item.Feature.Replace("\r\n", "<br>"))
+                        </p>
+                    </div>
+                    <div class="card-footer ">
+                        <p class="text-end">
+                            <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">詳細內容</a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
-
 
 

@@ -43,7 +43,7 @@ public class MemberData
 [ModelMetadataType(typeof(MemberData))]
 public partial class Member
 {
-    [NotMapped]  //這項要在DB first重建後再加
+    [NotMapped]  //這項要在DB first重建後再加，建View時要先註解，不然會沒有此欄位
     [Display(Name = "再填一次密碼", Prompt = "密碼為8-16碼")]
     [Required(ErrorMessage = "必填")]
     [Compare(nameof(Password), ErrorMessage = "密碼兩次輸入不相同")]
@@ -138,7 +138,7 @@ public class ProductData
     [Required(ErrorMessage = "必填")]
     public string ProductName { get; set; } = null!;
 
-    [Display(Name = "起始日")]
+    [Display(Name = "上架日")]
     [DataType(DataType.Date)]
     public DateOnly LaunchDate { get; set; }
 
