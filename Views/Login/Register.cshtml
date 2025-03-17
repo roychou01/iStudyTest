@@ -22,11 +22,6 @@
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
                 <input type="radio" class="btn-check" id="male" value="M" asp-for="Gender" autocomplete="off">
                 <label class="btn btn-outline-primary" for="male">男</label>
@@ -35,7 +30,6 @@
                 <input type="radio" class="btn-check" id="non" value="N" asp-for="Gender" autocomplete="off" checked>
                 <label class="btn btn-outline-secondary" for="non">不知道</label>
             </div>
-            
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -48,6 +42,12 @@
                 <input asp-for="phone" class="form-control" />
                 <span asp-validation-for="phone" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
                 <input asp-for="Password" class="form-control" />

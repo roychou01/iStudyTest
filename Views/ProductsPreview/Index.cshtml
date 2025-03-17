@@ -20,9 +20,13 @@
                     <div class="card-body">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => @item.ProductName)</h4>
                         <p class="card-text">
+                            
                            @*  @Html.DisplayNameFor(model => @model.FirstOrDefault().Company) ： *@
                             <h5 class="text-success">@Html.DisplayFor(modelItem => @item.Company.CompanyName)<br></h5>
-                            @Html.Raw(item.Feature.Replace("\r\n", "<br>"))
+                            <h6>
+                                @(item.ValidityPeriod.HasValue ? "繳費期：" +(item.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")
+                            </h6>
+                            @* @Html.Raw(item.Feature.Replace("\r\n", "<br>")) *@
                         </p>
                     </div>
                     <div class="card-footer ">

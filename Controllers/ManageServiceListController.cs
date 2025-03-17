@@ -48,8 +48,10 @@ namespace iStudyTest.Controllers
         // GET: ServiceLists/Create
         public IActionResult Create()
         {
-            ViewData["MemberID"] = new SelectList(_context.Member, "MemberID", "MemberID");
-            ViewData["StateCode"] = new SelectList(_context.ServiceState, "StateCode", "StateCode");
+            
+            ViewData["Member"] = new SelectList(_context.Member, "MemberID", "Name");
+            ViewData["StateList"] = new SelectList(_context.ServiceState, "StateCode", "State");
+            ViewData["Employee"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View();
         }
 
@@ -58,6 +60,10 @@ namespace iStudyTest.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ServiceList serviceList)
         {
+            serviceList.CreateDate = DateTime.Now;
+            serviceList.CurrentBusiness = "";
+            ModelState.Remove("ServiceNumber");
+
             if (ModelState.IsValid)
             {
                 _context.Add(serviceList);
@@ -82,8 +88,9 @@ namespace iStudyTest.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberID"] = new SelectList(_context.Member, "MemberID", "MemberID", serviceList.MemberID);
-            ViewData["StateCode"] = new SelectList(_context.ServiceState, "StateCode", "StateCode", serviceList.StateCode);
+            ViewData["Member"] = new SelectList(_context.Member, "MemberID", "Name");
+            ViewData["StateList"] = new SelectList(_context.ServiceState, "StateCode", "State");
+            ViewData["Employee"] = new SelectList(_context.Employee, "EmployeeID", "Name");
             return View(serviceList);
         }
 

@@ -104,8 +104,8 @@ namespace iStudyTest.Controllers
             
             //ModelState.Remove("Email");
 
-            ModelState.Clear(); //清除ModelState
-            TryValidateModel(member);  //重新執行Model驗證
+            //ModelState.Clear(); //清除ModelState
+            //TryValidateModel(member);  //重新執行Model驗證
 
             member.Password = _context.ComputeSha256Hash(member.Password); 
 
@@ -132,6 +132,7 @@ namespace iStudyTest.Controllers
                 //return RedirectToAction("Index", "Home");
                 return View(member);
             }
+            ViewData["ErrMessage"] = "資料有誤，請再次確認，謝謝";
             return View(member);
         }
 

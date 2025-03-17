@@ -1,12 +1,11 @@
 ﻿@model iStudyTest.Models.ServiceList
 
 @{
+    Layout = "_ManageLayout";
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>ServiceList</h4>
+<h2>代客新增服務單</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,19 +14,15 @@
             
             <div class="form-group">
                 <label asp-for="MemberID" class="control-label"></label>
-                <select asp-for="MemberID" class ="form-control" asp-items="ViewBag.MemberName"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrentBusiness" class="control-label"></label>
-                <input asp-for="CurrentBusiness" class="form-control" />
-                <span asp-validation-for="CurrentBusiness" class="text-danger"></span>
+                <select asp-for="MemberID" class ="form-control" asp-items="ViewBag.Member"></select>
             </div>
             <div class="form-group">
                 <label asp-for="StateCode" class="control-label"></label>
-                <select asp-for="StateCode" class ="form-control" asp-items="ViewBag.State"></select>
+                <select asp-for="StateCode" class ="form-control" asp-items="ViewBag.StateList"></select>
             </div>
+            
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="確定新增" class="btn btn-primary" />
             </div>
         </form>
     </div>
