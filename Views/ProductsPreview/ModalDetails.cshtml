@@ -1,0 +1,24 @@
+﻿@model iStudyTest.Models.Product
+@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="card">
+        <div class="row">
+            <div class="col-xl-8">
+            
+                @if (Model.DM != null)
+                {
+                    <img src="~/ProductPhotos/@Model.DM" class="card-img-top img-thumbnail" alt="產品圖片" />
+                }
+            </div>
+            <div class="col-xl-4">
+                <h4>@Model.ProductName</h4>
+                <h5 class="text-success"">保險公司: @Model.Company?.CompanyName</h5>
+                <h5 class="text-primary fw-bold">@(Model.ValidityPeriod.HasValue ? "繳費期：" + (Model.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")</h5>
+                <p>@Model.Feature</p>
+            </div>
+        </div>
+   </div>
+</div>

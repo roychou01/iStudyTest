@@ -51,6 +51,25 @@ namespace iStudyTest.Controllers
             return View(product);
         }
 
+        // GET: ProductsPreview/Details/5
+        public async Task<IActionResult> ModalDetails(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Product
+                .Include(p => p.Company)
+                .FirstOrDefaultAsync(m => m.ProductNumber == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
+
         private bool ProductExists(string id)
         {
             return _context.Product.Any(e => e.ProductNumber == id);
