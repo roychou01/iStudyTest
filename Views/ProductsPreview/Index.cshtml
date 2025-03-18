@@ -8,36 +8,117 @@
 
 <div class="container mt-5">
     <div class="row">
+        <div class="col-md-3 col-xl-2 d-md-grid gap-2">
+            <button class="btn btn-outline-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasList"> <i class="bi bi-search"></i>依公司篩選</button>
+        </div>
+        <div class="col-md-9 col-xl-10">
+            <input type="text" id="searchInput" class="form-control" placeholder="請輸入關鍵字搜尋商品....." />
+        </div>
+    </div>
+    <hr /> 
+
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" id="offcanvasList">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-fold" id="offcanvasListLabel">保險公司產品</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="list-group">
+                <a asp-action="Index" class="list-group-item list-group-item-action">全部商品</a>
+                @foreach (var item in ViewBag.Company)
+                {
+                    <a asp-action="Index" asp-route-CompanyID="@item.CompanyID" class="list-group-item list-group-item-action">@item.CompanyName</a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <h2 class="text-danger text-center fw-bold"><i class="bi bi-cart4"></i> 此類別目前沒有商品 <i class="bi bi-cart4"></i></h2>
+        }
         @foreach (var item in Model)
         {
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <div class="card mb-4 ">
-                    @if (item.DM != null)
-                    {
-                        <img src="~/ProductPhotos/@item.DM" class="card-img-top img-thumbnail"
-                             style="max-width: 100%; height: 300px; object-fit: fill;" />
-                    }
-                    <div class="card-body">
-                        <h4 class="card-title">@Html.DisplayFor(modelItem => @item.ProductName)</h4>
-                        <p class="card-text">
-                            
-                           @*  @Html.DisplayNameFor(model => @model.FirstOrDefault().Company) ： *@
-                            <h5 class="text-success">@Html.DisplayFor(modelItem => @item.Company.CompanyName)<br></h5>
-                            <h6>
-                                @(item.ValidityPeriod.HasValue ? "繳費期：" +(item.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")
-                            </h6>
-                            @* @Html.Raw(item.Feature.Replace("\r\n", "<br>")) *@
-                        </p>
+            <div class="col-xl-4 col-md-6 mb-4 products" data-myself-keyword="@item.ProductName@item.Feature@item.Company?.CompanyName">
+                <div class="card" style="height:100%">
+                    <div style="height:100%" data-bs-toggle="modal" data-bs-target="#productDetailModal" onclick="showDetail('@item.ProductNumber')">
+
+                        @if (item.DM != null)
+                        {
+                            <img src="~/ProductPhotos/@item.DM" class="img-thumbnail" alt="產品圖片" />
+                        }
+                        <div class="card-body" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="@item.Feature">
+                            <h6 class="lead">@(item.Company?.CompanyName)</h6>
+                            <h5 class="fw-bold">@item.ProductName</h5>
+                            <h5 class="text-primary fw-bold">@(item.ValidityPeriod.HasValue ? "繳費期：" + (item.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")</h5>
+                        </div>
                     </div>
-                    <div class="card-footer ">
-                        <p class="text-end">
-                            <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">詳細內容</a>
-                        </p>
+                    <div class="card-footer">
+
+                        <div class="d-grid gap-2">
+                            <a asp-action="Details" asp-route-id="@item.ProductNumber" class="btn btn-primary">詳細資料<i class="bi bi-info-circle"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         }
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="productDetailModal">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-door-open"></i> 離開</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts{
+
+    <script>
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+            function showDetail(id) {
+                const modalBody = $('#productDetailModal .modal-body');
+                modalBody.html(`
+                    <div class="d-flex justify-content-center align-items-center" style="height:200px;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    `);
+                modalBody.load(`/ProductList/Details/${id}`);
+            }
+
+        let searchTimeout;
+        $('#searchInput').on('input', function () {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                let keyword = $(this).val().toLowerCase();
+                $('.products').each(function () {
+                    let productInfo = $(this).data('myself-keyword').toLowerCase();
+                    $(this).toggle(productInfo.includes(keyword));
+                });
+            }, 300);
+        });
+
+            $(".list-group-item").on("click", function () {
+            $(".list-group-item").removeClass("active");
+            $(this).addClass("active");
+        });
+
+    </script>
+}
 
 
