@@ -9,9 +9,11 @@ using iStudyTest.Models;
 using iStudyTest.ViewModels;
 using System.ComponentModel.Design;
 using AspNetCoreGeneratedDocument;
+using iStudyTest.Filters;
 
 namespace iStudyTest.Controllers
 {
+    [ServiceFilter(typeof(EmpLoginStFilter))]
     public class ManageProductsController : Controller
     {
         private readonly iStudyTestContext _context;

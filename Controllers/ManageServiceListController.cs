@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 
 namespace iStudyTest.Controllers
 {
-    
+    [ServiceFilter(typeof(EmpLoginStFilter))]
     public class ManageServiceListController : Controller
     {
         private readonly iStudyTestContext _context;

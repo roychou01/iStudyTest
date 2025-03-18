@@ -8,7 +8,7 @@
 <h2>會員留單查詢</h2>
 
 <p>
-    <a asp-action="Create" asp-route-id="@member.MemberID" class="btn btn-outline-info">線上留單</a>
+    <a asp-action="Create" asp-route-id="@member?.MemberID" class="btn btn-outline-info">線上留單</a>
 </p>
 @* <form asp-action="Create" >
     <input type="hidden" value="@member.MemberID" name="id" />

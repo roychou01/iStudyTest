@@ -52,8 +52,8 @@
                 <div class="d-flex gap-2">
                 @if (Context.Session.GetString("MemberInfo") != null)
                 {
-                    <span>Welcome, @member.Name (@member.Email)</span> <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Logout">登出</a>
-                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Edit" asp-route-id="@member.MemberID"><i class="bi bi-card-list"></i></a>
+                    <span>Welcome, @member?.Name </span> <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Logout">登出</a>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Edit" asp-route-id="@member?.MemberID"><i class="bi bi-card-list"></i></a>
                 }
                 else
                 {

@@ -17,6 +17,7 @@ builder.Services.AddSession(options =>{
 //builder.Services.AddControllersWithViews();
 //µù¥Uµn¿ýª¬ºAFilter
 builder.Services.AddScoped<LoginStatusFilter>();
+builder.Services.AddScoped<EmpLoginStFilter>();
 
 builder.Services.AddControllersWithViews(options =>
 {

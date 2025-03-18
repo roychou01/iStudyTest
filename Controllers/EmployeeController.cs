@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iStudyTest.Models;
+using NuGet.Protocol;
 
 namespace iStudyTest.Controllers
 {
@@ -25,8 +26,43 @@ namespace iStudyTest.Controllers
             return View(await iStudyTestContext.ToListAsync());
         }
 
-        // GET: Employee/Details/5
-        public async Task<IActionResult> Details(string id)
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> Login(Employee employee)
+        {
+            var result = await _context.Employee.Where(m => m.EmployeeID == employee.EmployeeID && m.Password == _context.ComputeSha256Hash(employee.Password)).FirstOrDefaultAsync();
+
+            //如果帳密正確,導入後台頁面
+            if (result != null)
+            {
+                //發給證明,證明他已經登入
+                HttpContext.Session.SetString("EmployeeInfo", result.ToJson());
+
+                return RedirectToAction("Index", "ManageProducts");
+            }
+            else //如果帳密不正確,回到登入頁面,並告知帳密錯誤
+            {
+                ViewData["Message"] = "帳號或密碼錯誤";
+            }
+
+            return View(result);
+        }
+        public IActionResult Logout()
+        {
+            //5.4.2 在Logout Action中清除Session
+            HttpContext.Session.Remove("EmployeeInfo");//清掉
+            return RedirectToAction("Index", "Home");
+        }
+
+
+            // GET: Employee/Details/5
+            public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -52,8 +88,6 @@ namespace iStudyTest.Controllers
         }
 
         // POST: Employee/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeID,Name,Gender,Birthday,Address,Phone,PersonalID,HireDate,JobTitle,Experience,EmployeePhoto,RoleCode,Password,DueDate")] Employee employee)
@@ -86,8 +120,6 @@ namespace iStudyTest.Controllers
         }
 
         // POST: Employee/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("EmployeeID,Name,Gender,Birthday,Address,Phone,PersonalID,HireDate,JobTitle,Experience,EmployeePhoto,RoleCode,Password,DueDate")] Employee employee)

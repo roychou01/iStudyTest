@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iStudyTest.Models;
 using System.ComponentModel.Design;
+using iStudyTest.Filters;
 
 namespace iStudyTest.Controllers
 {
+    [ServiceFilter(typeof(EmpLoginStFilter))]
     public class ProductsController : Controller
     {
         private readonly iStudyTestContext _context;
