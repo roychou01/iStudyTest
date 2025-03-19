@@ -16,12 +16,12 @@
         <div class="col-xl-6">
             <div class="card-body">
             <dl>
-                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.Company.CompanyName)</dt>
-                <dd class="ms-3">@Html.DisplayFor(model => model.Company.CompanyName)</dd>
-
                 <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.ProductName)</dt>
-                <dd class="ms-3">@Html.DisplayFor(model => model.ProductName)</dd>
-
+                <dd class="ms-3 fs-5">@Html.DisplayFor(model => model.ProductName)</dd>
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.ProductNumber)</dt>
+                <dd class="ms-3">@Html.DisplayFor(model => model.ProductNumber)</dd>
+                <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.Company.CompanyName)</dt>
+                <dd class="ms-3 text-success">@Html.DisplayFor(model => model.Company.CompanyName)</dd>
                 <dt class="d-block fw-bold">@Html.DisplayNameFor(model => model.LaunchDate)</dt>
                 <dd class="ms-3">@Html.DisplayFor(model => model.LaunchDate)</dd>
 

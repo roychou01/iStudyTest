@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iStudyTest.Models;
 using NuGet.Protocol;
+using iStudyTest.Filters;
 
 namespace iStudyTest.Controllers
 {
+    
     public class EmployeeController : Controller
     {
         private readonly iStudyTestContext _context;
@@ -20,6 +22,7 @@ namespace iStudyTest.Controllers
         }
 
         // GET: Employee
+        [ServiceFilter(typeof(EmpLoginStFilter))]
         public async Task<IActionResult> Index()
         {
             var iStudyTestContext = _context.Employee.Include(e => e.RoleCodeNavigation);

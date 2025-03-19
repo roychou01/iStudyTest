@@ -49,9 +49,10 @@
                             <img src="~/ProductPhotos/@item.DM" class="img-thumbnail" alt="產品圖片" />
                         }
                         <div class="card-body" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="@item.Feature">
-                            <h6 class="lead">@(item.Company?.CompanyName)</h6>
-                            <h5 class="fw-bold">@item.ProductName</h5>
-                            <h5 class="text-primary fw-bold">@(item.ValidityPeriod.HasValue ? "繳費期：" + (item.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")</h5>
+                            <h4 class="fw-bold">@item.ProductName</h4>
+                            <h6 class="lead">@(item.Company?.CompanyName)</h6>                            
+                            <h6 class="text-primary fw-bold">@item.Type</h6>
+                            <p>@(item.ValidityPeriod.HasValue ? "繳費期：" + (item.ValidityPeriod.Value / 12) + " 年" : "期滿後終生有效")</p>
                         </div>
                     </div>
                     <div class="card-footer">

@@ -98,7 +98,12 @@ public class EmployeeData
     [Required(ErrorMessage = "必填")]
     public string RoleCode { get; set; } = null!;
 
-    [Display(Name = "員工密碼")]
+    [Display(Name = "員工密碼", Prompt = "密碼為8-16碼")]
+    [Required(ErrorMessage = "必填")]
+    [StringLength(16, MinimumLength = 8, ErrorMessage = "密碼為8-16碼")]
+    [MinLength(8)]
+    [MaxLength(16)]
+    [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
     [Display(Name = "員工離職日")]

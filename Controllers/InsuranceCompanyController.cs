@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using iStudyTest.Models;
+using iStudyTest.Filters;
 
 namespace iStudyTest.Controllers
 {
+    [ServiceFilter(typeof(EmpLoginStFilter))]
     public class InsuranceCompanyController : Controller
     {
         private readonly iStudyTestContext _context;
