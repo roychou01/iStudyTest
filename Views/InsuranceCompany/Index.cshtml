@@ -33,10 +33,11 @@
                     @Html.DisplayFor(modelItem => item.CompanyName)
                 </td>
                 <td class="d-flex">
-                    <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-outline-warning"><i class="bi bi-pencil-fill"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-outline-warning" title="編輯"><i class="bi bi-pencil-fill"></i></a>
                     <form asp-action="Delete">
                         <input type="hidden" value="@item.CompanyID" name="id" />
-                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.CompanyName) 資料嗎? 刪除後是救不回來的哦!')"><i class="bi bi-trash3"></i>
+                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('您確定要刪除 @(item.CompanyID+item.CompanyName) 資料嗎? 刪除後是救不回來的哦!')" title="刪除">
+                            <i class="bi bi-trash3"></i>
                         </button>
                     </form>
                 </td>

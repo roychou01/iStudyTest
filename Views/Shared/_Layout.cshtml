@@ -42,9 +42,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">隱私權</a>
                         </li>
-                        @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Edit" asp-route-id="@member.MemberID">會員資料修改</a>
-                        </li> *@
+                        
                     </ul>
 
                 </div>
@@ -53,7 +51,7 @@
                 @if (Context.Session.GetString("MemberInfo") != null)
                 {
                     <span>Welcome, @member?.Name </span> <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Logout">登出</a>
-                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Edit" asp-route-id="@member?.MemberID"><i class="bi bi-card-list"></i></a>
+                    <a class="btn btn-outline-dark" asp-area="" asp-controller="Login" asp-action="Edit" asp-route-id="@member?.MemberID"><i class="bi bi-card-list" title="編輯會員資料"></i></a>
                 }
                 else
                 {
