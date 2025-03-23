@@ -5,15 +5,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>員工明細</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-outline-primary">新增</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th width="6%">
+                @Html.DisplayNameFor(model => model.EmployeeID)
+            </th>
+            <th width="6%">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -22,40 +25,38 @@
             <th>
                 @Html.DisplayNameFor(model => model.Birthday)
             </th>
-            <th>
+            <th width ="10%">
                 @Html.DisplayNameFor(model => model.Address)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Phone)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PersonalID)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.HireDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.JobTitle)
             </th>
-            <th>
+            <th width="20%">
                 @Html.DisplayNameFor(model => model.Experience)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeePhoto)
-            </th>
-            
+                        
             <th>
                 @Html.DisplayNameFor(model => model.DueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoleCodeNavigation)
+                @Html.DisplayNameFor(model => model.RoleCodeNavigation.Role)
             </th>
-            <th></th>
+            <th>管理</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeID)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -71,9 +72,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonalID)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.HireDate)
             </td>
@@ -83,20 +82,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Experience)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeePhoto)
-            </td>
-            
+                        
             <td>
                 @Html.DisplayFor(modelItem => item.DueDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RoleCodeNavigation.RoleCode)
+                @Html.DisplayFor(modelItem => item.RoleCodeNavigation.Role)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
                 
+                <a asp-action="Details" asp-route-id="@item.EmployeeID" class="btn btn-outline-success">詳細</a>
+                <a asp-action="Edit" asp-route-id="@item.EmployeeID" class="btn btn-outline-warning">編輯</a>
             </td>
         </tr>
 }

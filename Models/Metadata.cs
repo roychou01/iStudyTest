@@ -54,51 +54,51 @@ public partial class Member
 
 public class EmployeeData
 {
-    [Display(Name = "員工編號")]
+    [Display(Name = "編號")]
     [StringLength(7, MinimumLength = 7)]
     public string EmployeeID { get; set; } = null!;
 
-    [Display(Name = "員工姓名")]
+    [Display(Name = "姓名")]
     [StringLength(27, MinimumLength = 2, ErrorMessage = "姓名最少2字、最多27個字")]
     public string Name { get; set; } = null!;
 
-    [Display(Name = "員工性別")]
+    [Display(Name = "性別")]
     public string Gender { get; set; } = null!;
 
-    [Display(Name = "員工生日")]
+    [Display(Name = "生日")]
     [DataType(DataType.Date)]
     public DateOnly Birthday { get; set; }
 
-    [Display(Name = "員工地址")]
+    [Display(Name = "地址")]
     [DataType(DataType.MultilineText)]
     public string Address { get; set; } = null!;
 
-    [Display(Name = "員工電話")]
+    [Display(Name = "電話")]
     public string? Phone { get; set; }
 
-    [Display(Name = "員工身分證號")]
+    [Display(Name = "身分證號")]
     [Required(ErrorMessage = "必填")]
     public string PersonalID { get; set; } = null!;
 
-    [Display(Name = "員工到職日")]
+    [Display(Name = "到職日")]
     [DataType(DataType.Date)]
     public DateOnly? HireDate { get; set; }
 
-    [Display(Name = "員工職稱")]
+    [Display(Name = "職稱")]
     public string? JobTitle { get; set; }
 
-    [Display(Name = "員工經歷")]
+    [Display(Name = "經歷")]
     [DataType(DataType.MultilineText)]
     public string? Experience { get; set; }
 
-    [Display(Name = "員工照片")]
+    [Display(Name = "照片")]
     public string? EmployeePhoto { get; set; }
 
-    [Display(Name = "員工權限碼")]
+    [Display(Name = "權限碼")]
     [Required(ErrorMessage = "必填")]
     public string RoleCode { get; set; } = null!;
 
-    [Display(Name = "員工密碼", Prompt = "密碼為8-16碼")]
+    [Display(Name = "密碼", Prompt = "密碼為8-16碼")]
     [Required(ErrorMessage = "必填")]
     [StringLength(16, MinimumLength = 8, ErrorMessage = "密碼為8-16碼")]
     [MinLength(8)]
@@ -106,7 +106,7 @@ public class EmployeeData
     [DataType(DataType.Password)]
     public string Password { get; set; } = null!;
 
-    [Display(Name = "員工離職日")]
+    [Display(Name = "離職日")]
     [DataType(DataType.Date)]
     public DateOnly? DueDate { get; set; }
 }
